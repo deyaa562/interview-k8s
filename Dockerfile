@@ -20,7 +20,7 @@ COPY . .
 # Make sure you don't ignore test failures unless you're in dev mode:
 
 RUN --mount=type=cache,target=/root/.gradle \
-    ./gradlew build --no-daemon --stacktrace -x test
+    ./gradlew build --no-daemon --stacktrace
 
 # Stage 2: Runtime stage with JRE only
 FROM eclipse-temurin:17-jre-jammy
@@ -40,7 +40,7 @@ USER appuser
 EXPOSE 8080
 
 # Set the entrypoint
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dserver.address=0.0.0.0", "-jar", "app.jar"]
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
   CMD curl -f http://localhost:8080/actuator/health || exit 1

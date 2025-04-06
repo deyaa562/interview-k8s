@@ -86,7 +86,7 @@ This script builds the Docker image, installs the Helm chart, and port-forwards 
 - Port forward to access app (if not using `deploy.sh`):
   ```bash
   kubectl port-forward svc/my-petclinic 8080:8080
-  open http://localhost:8080
+  open https://localhost:8080
   ```
 
 ## Enabling Ingress Access
@@ -126,5 +126,5 @@ ingress:
 
 4. **Access your app**:
    ```
-   http://petclinic.local
+   https://petclinic.local
    ```

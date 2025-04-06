@@ -1,3 +1,5 @@
+fullnameOverride: petclinic
+
 image:
   repository: spring-petclinic
   tag: latest

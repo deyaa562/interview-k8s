@@ -93,7 +93,7 @@ kubectl get pods
 - Port forward to access app (if not using `deploy.sh`):
 ```bash
 kubectl port-forward svc/my-petclinic 8080:8080
-open http://localhost:8080
+open https://localhost:8080
 ```
 
 ## Enabling Ingress Access
@@ -102,16 +102,15 @@ open http://localhost:8080
 
 ```yaml
 ingress:
-enabled: true
-className: nginx
-annotations:
-nginx.ingress.kubernetes.io/rewrite-target: /
-hosts:
-- host: petclinic.local
-    paths:
-    - path: /
-        pathType: Prefix
-tls: []
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: petclinic.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
 ```
 
 2. **Enable ingress controller**:
@@ -133,5 +132,5 @@ tls: []
 
 4. **Access your app**:
 ```
-http://petclinic.local
+https://petclinic.local
 ```
