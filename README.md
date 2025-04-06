@@ -69,7 +69,7 @@ docker build -t spring-petclinic:latest .
 helm upgrade --install my-petclinic .
 ```
 
-5. Optionally enable ingress in `values.yaml` and add a local DNS entry for `petclinic.local`. ([see how to enable ➜](#enabling-ingress-access))
+5. Optionally enable ingress in `values.yaml` and add a local DNS entry for `petclinic.local`. ([see how to enable](#enabling-ingress-access))
 
 ### Option 2: One-Step Script
 💡 Note: `deploy.sh` is a Unix shell script and requires a Unix-compatible environment (Linux, macOS, or WSL on Windows).
