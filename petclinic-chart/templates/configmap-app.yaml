@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "petclinic-chart.fullname" . }}-app-config
+  labels:
+    {{- include "petclinic-chart.labels" . | nindent 4 }}
+data:
+  application.properties: |
+{{ .Files.Get "config/application.properties" | indent 4 }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: petclinic-chart
+description: Helm chart to deploy Spring Petclinic with a local database
+version: 0.1.0
+appVersion: "1.0"
+type: application

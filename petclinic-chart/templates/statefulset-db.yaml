@@ -1,0 +1,53 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "petclinic-chart.fullname" . }}-db
+  labels:
+    {{- include "petclinic-chart.dbLabels" . | nindent 4 }}
+
+spec:
+  serviceName: {{ include "petclinic-chart.fullname" . }}-db-service
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "petclinic-chart.dbSelectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "petclinic-chart.dbLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: db
+          image: {{ .Values.database.image }}
+          ports:
+            - containerPort: {{ .Values.database.port }}
+              name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.database.name | quote }}
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "petclinic-chart.fullname" . }}-db-secret
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "petclinic-chart.fullname" . }}-db-secret
+                  key: password
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    {{- if .Values.database.persistence.enabled }}
+    - metadata:
+        name: db-data
+        labels:
+          {{- include "petclinic-chart.dbLabels" . | nindent 10 }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.database.persistence.size }}
+    {{- end }}
