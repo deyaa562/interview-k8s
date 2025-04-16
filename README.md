@@ -66,7 +66,7 @@ docker build -t spring-petclinic:latest .
 
 4. Deploy with Helm:
 ```bash
-helm upgrade --install my-petclinic .
+helm upgrade --install petclinic ./petclinic-chart
 ```
 
 5. Optionally enable ingress in `values.yaml` and add a local DNS entry for `petclinic.local`. ([see how to enable](#enabling-ingress-access))
@@ -92,11 +92,11 @@ kubectl get pods
 ```
 - Port forward to access app (if not using `deploy.sh`):
 ```bash
-kubectl port-forward svc/my-petclinic 8080:8080
+kubectl port-forward svc/petclinic 8080:8080
 open https://localhost:8080
 ```
 
-## Enabling Ingress Access
+## Enabling Ingress Access (Optional)
 
 1. **Update `values.yaml`** to enable ingress:
 
