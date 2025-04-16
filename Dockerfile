@@ -17,7 +17,6 @@ RUN --mount=type=cache,target=/root/.gradle ./gradlew build --no-daemon --stackt
 # Copy the source code
 # Use --mount=type=bind for potentially faster context mounting (read-only is safer if applicable)
 COPY . .
-# Make sure you don't ignore test failures unless you're in dev mode:
 
 RUN --mount=type=cache,target=/root/.gradle \
     ./gradlew build --no-daemon --stacktrace
